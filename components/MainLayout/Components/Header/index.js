@@ -116,12 +116,12 @@ const Header = ({ displayDesktop = true, displayMobile = true }) => {
               <Affix style={{ width: '100%' }}>
                 <HeaderContainerMobile>
                   <HeaderWrapper>
-                    <HeaderSide onClick={() => router.push('/')}>
+                    {/* <HeaderSide onClick={() => router.push('/')}>
                       {!sidebar && <Image cursor='pointer' width={45} height={45} src={images.logo} alt='header' />}
-                    </HeaderSide>
-                    <HeaderSide>
+                    </HeaderSide> */}
+                    <HeaderSide style={{ justifyContent: 'space-between', width: '100%' }}>
                       <SelectInput
-                        className='ML20 MR20'
+                        className='MR20'
                         onChange={(v) => ReduxService.switchChain(Number(v))}
                         value={`${chainConnected}`}
                         options={[
