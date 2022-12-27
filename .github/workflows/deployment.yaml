@@ -1,0 +1,60 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build_test:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: |
+            **/build
+            **/build-develop
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn --ignore-engines
+
+      - name: Build testnet application
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: yarn build:development
+
+      - name: Restart develop server
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          rm -rf build-develop
+          mkdir build-develop
+          mv out build-develop
+          pm2 restart client-testnet
+
+      - name: Build mainnet application
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: yarn build
+
+      - name: Restart production server
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          pm2 restart client-mainnet

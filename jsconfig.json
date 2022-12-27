@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/common/*": ["common/*"],
+      "@/controller/*": ["controller/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/pages/*": ["pages/*"]
+    }
+  }
+}
