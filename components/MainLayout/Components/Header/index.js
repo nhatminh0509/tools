@@ -129,6 +129,7 @@ const Header = ({ displayDesktop = true, displayMobile = true }) => {
                           { name: 'BSC Testnet', value: '97' },
                           { name: 'AVAX Testnet', value: '43113' },
                           { name: 'ETH Testnet', value: '5' },
+                          { name: 'Polygon Testnet', value: '80001' },
                         ]}
                       />
                       <PrimaryButton onClick={() => handleConnect()} height='30px' width='180px'>
@@ -165,6 +166,7 @@ const Header = ({ displayDesktop = true, displayMobile = true }) => {
                         { name: 'BSC Testnet', value: '97' },
                         { name: 'AVAX Testnet', value: '43113' },
                         { name: 'ETH Testnet', value: '5' },
+                        { name: 'Polygon Testnet', value: '80001' },
                       ]}
                     />
                     <PrimaryButton onClick={() => handleConnect()} height='30px' width='180px'>
